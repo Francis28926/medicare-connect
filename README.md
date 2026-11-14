@@ -9,7 +9,7 @@ Built with PHP 8 and MySQL/MariaDB, designed to run locally on XAMPP.
 | **Document date** | November 2026 |
 | **Based on** | *Software Requirements Specification: MediCare Connect* v1.0.0 (October 2026) |
 | **Course** | Software Engineering, SIIMT University |
-| **Student / ID** | *(add your name and student number)* |
+| **Team** | Group of four students (see [section 19](#19-presentation-plan-4-presenters)) |
 | **Lecturer** | *(add lecturer's name)* |
 
 ---
@@ -34,7 +34,7 @@ Built with PHP 8 and MySQL/MariaDB, designed to run locally on XAMPP.
 16. [Testing](#16-testing)
 17. [Troubleshooting](#17-troubleshooting)
 18. [Known limitations and future work](#18-known-limitations-and-future-work)
-19. [Presentation script](#19-presentation-script)
+19. [Presentation plan (4 presenters)](#19-presentation-plan-4-presenters)
 
 ---
 
@@ -520,20 +520,70 @@ The application was smoke-tested end to end on PHP 8.3 with MariaDB 10.11, using
 
 ---
 
-## 19. Presentation script
+## 19. Presentation plan (4 presenters)
 
-A suggested 8-10 minute demonstration using two browsers (or one normal and one private window).
+Total time about 12 minutes plus questions. One laptop runs the demo, with **two browser windows**: a normal window and a private/incognito window (so two users can be signed in at once). Before starting, re-import `database/medicare_connect.sql` so the demo data is fresh, and sign in beforehand as staff and doctor in the private window's tabs if time is tight.
 
-1. **Introduce the problem and objectives** (section 1).
-2. **Patient registers** and verifies email, then signs in with the one-time code (shows verification and MFA).
-3. **Patient completes profile**, then **books** a doctor in three steps and **pays** with the test card.
-4. **Switch to Reception** (staff login): open the **Queue**, **check in** the patient.
-5. **Back on the patient dashboard:** show the live position update.
-6. **Switch to Doctor:** **Call in**, enter vitals, diagnosis, add two medications, **Complete consultation**.
-7. **Patient:** open **Records** and show the e-prescription (use Print).
-8. **Admin:** show **Users and roles** (RBAC), **Audit log** (records access, sign-ins), **Outbox**, **Run reminder job**, **Reports** (average wait, CSV export) and **Create backup** (explain AES-256).
-9. **Security demo:** while signed in as patient, open an admin URL to show the **403** response.
-10. **Close** with the SRS traceability table and the limitations and future work.
+### 19.1 Team and responsibilities
+| Presenter | Role in the presentation | Topics | Time |
+|---|---|---|---|
+| **Student 1** *(name / ID)* | Project lead and architect | Problem, objectives, scope, users, technology stack, architecture, database design | 3 min |
+| **Student 2** *(name / ID)* | Patient module | Registration, email verification, MFA login, profile, booking, payment, live queue view | 3 min |
+| **Student 3** *(name / ID)* | Reception and doctor modules | Check-in, live queue board, call-in, consultation, e-prescription, patient records | 3 min |
+| **Student 4** *(name / ID)* | Admin, security and quality | RBAC, audit log, reports, reminders, backups, testing, limitations, conclusion | 3 min |
+
+*(Replace the placeholders with your names and student numbers. Adjust the "Role" column to match who actually built each part, for the contribution record your lecturer may ask for.)*
+
+### 19.2 Script and hand-offs
+
+**Student 1: Introduction and design (sections 1, 3, 4, 9)**
+1. The problem: long waits, paper records, manual errors in clinics. State the three objectives (section 1.3).
+2. Who uses it: four roles (patient, doctor, reception, admin).
+3. Show the architecture sketch (4.1) and the ER diagram (9.1). Mention PHP + MySQL on XAMPP, 13 tables, and that the design follows the SRS.
+4. *Hand-off:* "Now we'll see the system through the patient's eyes." Pass to Student 2.
+
+**Student 2: Patient journey (sections 7, 8.1)**
+1. Register a new patient, click the on-screen verification link, sign in with the one-time code (point out: bcrypt, email verification, multi-factor login).
+2. Open the profile and show the medical-history questionnaire and emergency contact.
+3. **Book:** search by specialty, choose a slot, confirm (three steps). Mention double-booking is impossible.
+4. **Pay** with test card `4242 4242 4242 4242`.
+5. Leave the patient window open on the dashboard.
+6. *Hand-off:* "The patient has arrived at the clinic. Over to reception and the doctor." Pass to Student 3.
+
+**Student 3: Reception and doctor (sections 8.2, 8.3)**
+1. Reception (`staff@medicare.test`): open the Queue, **check in** the new patient. Switch to the patient window and show the live "N ahead of you" update (point out it refreshes by itself every 10 seconds).
+2. Doctor (`kwame@medicare.test`): see the queue and the allergy warning, **Call in** the patient, show the patient window changing to "It's your turn".
+3. Fill vitals, diagnosis, notes, add two medications, **Complete consultation**.
+4. Patient window: open **Records** and show the visit and e-prescription (use Print).
+5. *Hand-off:* "Behind all this, the administrator keeps the system secure and measurable." Pass to Student 4.
+
+**Student 4: Admin, security, quality (sections 8.4, 11, 14, 16, 18)**
+1. Admin (`admin@medicare.test`): **Users and roles** (RBAC), **Audit log** (show the sign-ins and record access just generated), **Outbox** (simulated email/SMS), **Run reminder job**.
+2. **Reports:** average wait, revenue, CSV export. Link back to the objective of reducing waiting time.
+3. **Create backup** and explain AES-256 encryption.
+4. **Security demo:** while signed in as the patient, open an admin URL and show the **403 Access denied**.
+5. Show the SRS traceability table (section 14) and the testing summary (section 16). Be open about what is simulated (section 15) and the limitations (section 18).
+6. Conclusion: what was delivered and the future improvements.
+
+### 19.3 Likely questions and short answers
+| Question | Answer |
+|---|---|
+| Why PHP and MySQL, not React and AWS as in the SRS? | The delivery target is a local XAMPP demo. React/AWS/Docker are deployment choices listed under production in section 15; the functional requirements are all covered. |
+| Are emails, SMS and payments real? | No. They are simulated and logged in the Outbox and payments table. The code has clearly marked places to plug in SendGrid, Twilio and Stripe. |
+| How do you prevent two patients booking the same slot? | A unique `slot_key` column in the database; the second insert fails and the patient is asked to choose another time. |
+| How is patient data protected? | Bcrypt passwords, MFA, role-based access, CSRF and SQL-injection protection, audit log, encrypted backups. Doctors see only their own patients. |
+| How does the live queue work? | Pages ask the server for fresh data every 10 seconds. A production version could use WebSockets. |
+| How does it reduce waiting time? | Online booking removes phone queues, the live queue tells patients when to come, and the report measures average wait from check-in to consultation. |
+| Did you test it? | Yes, scripted end-to-end tests of every main flow and the security checks (section 16). Load and performance targets were not measured. |
+| What happens if MFA email cannot be sent? | In demo mode the code appears on screen. In production the SendGrid integration delivers it; the code expires after 10 minutes. |
+
+### 19.4 Demo checklist (before presenting)
+- [ ] Apache and MySQL are green in XAMPP; `http://localhost/medicare_connect/` loads
+- [ ] Database freshly re-imported
+- [ ] Browser zoom at 110-125% so the back row can read the screen
+- [ ] Normal window and private window ready; passwords at hand (`Password@123`)
+- [ ] A second device or printed screenshots as a backup if the laptop fails
+- [ ] Everyone knows their hand-off sentence and who drives the keyboard
 
 ---
 
