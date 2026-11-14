@@ -9,7 +9,7 @@ Built with PHP 8 and MySQL/MariaDB, designed to run locally on XAMPP.
 | **Document date** | November 2026 |
 | **Based on** | *Software Requirements Specification: MediCare Connect* v1.0.0 (October 2026) |
 | **Course** | Software Engineering, SIIMT University |
-| **Team** | Group of four students (see [section 19](#19-presentation-plan-4-presenters)) |
+| **Team** | Group of three students (see [section 19](#19-presentation-plan-3-presenters)) |
 | **Lecturer** | *(add lecturer's name)* |
 
 ---
@@ -34,7 +34,7 @@ Built with PHP 8 and MySQL/MariaDB, designed to run locally on XAMPP.
 16. [Testing](#16-testing)
 17. [Troubleshooting](#17-troubleshooting)
 18. [Known limitations and future work](#18-known-limitations-and-future-work)
-19. [Presentation plan (4 presenters)](#19-presentation-plan-4-presenters)
+19. [Presentation plan (3 presenters)](#19-presentation-plan-3-presenters)
 
 ---
 
@@ -520,44 +520,38 @@ The application was smoke-tested end to end on PHP 8.3 with MariaDB 10.11, using
 
 ---
 
-## 19. Presentation plan (4 presenters)
+## 19. Presentation plan (3 presenters)
 
-Total time about 12 minutes plus questions. One laptop runs the demo, with **two browser windows**: a normal window and a private/incognito window (so two users can be signed in at once). Before starting, re-import `database/medicare_connect.sql` so the demo data is fresh, and sign in beforehand as staff and doctor in the private window's tabs if time is tight.
+Total time about 12 minutes (4 minutes each) plus questions. One laptop runs the demo, with **two browser windows**: a normal window and a private/incognito window (so two users can be signed in at once). Before starting, re-import `database/medicare_connect.sql` so the demo data is fresh, and sign in beforehand as staff and doctor in the private window's tabs if time is tight.
 
 ### 19.1 Team and responsibilities
 | Presenter | Role in the presentation | Topics | Time |
 |---|---|---|---|
-| **Student 1** *(name / ID)* | Project lead and architect | Problem, objectives, scope, users, technology stack, architecture, database design | 3 min |
-| **Student 2** *(name / ID)* | Patient module | Registration, email verification, MFA login, profile, booking, payment, live queue view | 3 min |
-| **Student 3** *(name / ID)* | Reception and doctor modules | Check-in, live queue board, call-in, consultation, e-prescription, patient records | 3 min |
-| **Student 4** *(name / ID)* | Admin, security and quality | RBAC, audit log, reports, reminders, backups, testing, limitations, conclusion | 3 min |
+| **Student 1** *(name / ID)* | Project lead, architecture and patient module | Problem, objectives, scope, technology stack, architecture, database design; patient demo (register, verify, MFA, profile, book, pay) | 4 min |
+| **Student 2** *(name / ID)* | Reception and doctor modules | Check-in, live queue board, call-in, consultation, e-prescription, patient records | 4 min |
+| **Student 3** *(name / ID)* | Admin, security and quality | RBAC, audit log, reports, reminders, backups, security demo, testing, limitations, conclusion | 4 min |
 
 *(Replace the placeholders with your names and student numbers. Adjust the "Role" column to match who actually built each part, for the contribution record your lecturer may ask for.)*
 
 ### 19.2 Script and hand-offs
 
-**Student 1: Introduction and design (sections 1, 3, 4, 9)**
-1. The problem: long waits, paper records, manual errors in clinics. State the three objectives (section 1.3).
-2. Who uses it: four roles (patient, doctor, reception, admin).
-3. Show the architecture sketch (4.1) and the ER diagram (9.1). Mention PHP + MySQL on XAMPP, 13 tables, and that the design follows the SRS.
-4. *Hand-off:* "Now we'll see the system through the patient's eyes." Pass to Student 2.
+**Student 1: Introduction, design and patient journey (sections 1, 3, 4, 8.1, 9)**
+1. The problem: long waits, paper records, manual errors in clinics. State the three objectives (section 1.3) and the four user roles.
+2. Show the architecture sketch (4.1) and the ER diagram (9.1). Mention PHP + MySQL on XAMPP, 13 tables, and that the design follows the SRS.
+3. **Patient demo:** register a new patient, click the on-screen verification link, sign in with the one-time code (point out bcrypt, email verification, multi-factor login).
+4. Show the profile (medical-history questionnaire, emergency contact).
+5. **Book:** search by specialty, choose a slot, confirm (three steps; double-booking is impossible). **Pay** with test card `4242 4242 4242 4242`.
+6. Leave the patient window open on the dashboard.
+7. *Hand-off:* "The patient has arrived at the clinic. Over to reception and the doctor." Pass to Student 2.
 
-**Student 2: Patient journey (sections 7, 8.1)**
-1. Register a new patient, click the on-screen verification link, sign in with the one-time code (point out: bcrypt, email verification, multi-factor login).
-2. Open the profile and show the medical-history questionnaire and emergency contact.
-3. **Book:** search by specialty, choose a slot, confirm (three steps). Mention double-booking is impossible.
-4. **Pay** with test card `4242 4242 4242 4242`.
-5. Leave the patient window open on the dashboard.
-6. *Hand-off:* "The patient has arrived at the clinic. Over to reception and the doctor." Pass to Student 3.
-
-**Student 3: Reception and doctor (sections 8.2, 8.3)**
-1. Reception (`staff@medicare.test`): open the Queue, **check in** the new patient. Switch to the patient window and show the live "N ahead of you" update (point out it refreshes by itself every 10 seconds).
-2. Doctor (`kwame@medicare.test`): see the queue and the allergy warning, **Call in** the patient, show the patient window changing to "It's your turn".
+**Student 2: Reception and doctor (sections 8.2, 8.3)**
+1. Reception (`staff@medicare.test`): open the Queue, **check in** the new patient. Switch to the patient window and show the live "N ahead of you" update (it refreshes by itself every 10 seconds).
+2. Doctor (`kwame@medicare.test`): show the queue and the allergy warning, **Call in** the patient, then show the patient window changing to "It's your turn".
 3. Fill vitals, diagnosis, notes, add two medications, **Complete consultation**.
 4. Patient window: open **Records** and show the visit and e-prescription (use Print).
-5. *Hand-off:* "Behind all this, the administrator keeps the system secure and measurable." Pass to Student 4.
+5. *Hand-off:* "Behind all this, the administrator keeps the system secure and measurable." Pass to Student 3.
 
-**Student 4: Admin, security, quality (sections 8.4, 11, 14, 16, 18)**
+**Student 3: Admin, security, quality (sections 8.4, 11, 14, 16, 18)**
 1. Admin (`admin@medicare.test`): **Users and roles** (RBAC), **Audit log** (show the sign-ins and record access just generated), **Outbox** (simulated email/SMS), **Run reminder job**.
 2. **Reports:** average wait, revenue, CSV export. Link back to the objective of reducing waiting time.
 3. **Create backup** and explain AES-256 encryption.
