@@ -10,7 +10,7 @@ Built with PHP 8 and MySQL/MariaDB, designed to run locally on XAMPP.
 | **Based on** | *Software Requirements Specification: MediCare Connect* v1.0.0 (October 2026) |
 | **Course** | Software Engineering, SIIMT University |
 | **Team** | Group of three students (see [section 19](#19-presentation-plan-3-presenters)) |
-| **Lecturer** | *(add lecturer's name)* |
+| **Lecturer** | *(Mr. Isaac Clinton Agble)* |
 
 ---
 
@@ -527,9 +527,9 @@ Total time about 12 minutes (4 minutes each) plus questions. One laptop runs the
 ### 19.1 Team and responsibilities
 | Presenter | Role in the presentation | Topics | Time |
 |---|---|---|---|
-| **Student 1** *(name / ID)* | Project lead, architecture and patient module | Problem, objectives, scope, technology stack, architecture, database design; patient demo (register, verify, MFA, profile, book, pay) | 4 min |
-| **Student 2** *(name / ID)* | Reception and doctor modules | Check-in, live queue board, call-in, consultation, e-prescription, patient records | 4 min |
-| **Student 3** *(name / ID)* | Admin, security and quality | RBAC, audit log, reports, reminders, backups, security demo, testing, limitations, conclusion | 4 min |
+| **Student 1** *(Francis Tse-Atsu Osabutey / BScIT/2024/08/0110)* | Project lead, architecture and patient module | Problem, objectives, scope, technology stack, architecture, database design; patient demo (register, verify, MFA, profile, book, pay) | 4 min |
+| **Student 2** *(Benjamin Akuoko/ ID)* | Reception and doctor modules | Check-in, live queue board, call-in, consultation, e-prescription, patient records | 4 min |
+| **Student 3** *(Derrick Owusu / ID)* | Admin, security and quality | RBAC, audit log, reports, reminders, backups, security demo, testing, limitations, conclusion | 4 min |
 
 *(Replace the placeholders with your names and student numbers. Adjust the "Role" column to match who actually built each part, for the contribution record your lecturer may ask for.)*
 
