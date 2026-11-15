@@ -528,7 +528,7 @@ Total time about 12 minutes (4 minutes each) plus questions. One laptop runs the
 | Presenter | Role in the presentation | Topics | Time |
 |---|---|---|---|
 | **Student 1** *(Francis Tse-Atsu Osabutey / BScIT/2024/08/0110)* | Project lead, architecture and patient module | Problem, objectives, scope, technology stack, architecture, database design; patient demo (register, verify, MFA, profile, book, pay) | 4 min |
-| **Student 2** *(Benjamin Akuoko/ ID)* | Reception and doctor modules | Check-in, live queue board, call-in, consultation, e-prescription, patient records | 4 min |
+| **Student 2** *(Benjamin Akuoko/ BSCIS /2025/08/0102)* | Reception and doctor modules | Check-in, live queue board, call-in, consultation, e-prescription, patient records | 4 min |
 | **Student 3** *(Derrick Owusu / ID)* | Admin, security and quality | RBAC, audit log, reports, reminders, backups, security demo, testing, limitations, conclusion | 4 min |
 
 *(Replace the placeholders with your names and student numbers. Adjust the "Role" column to match who actually built each part, for the contribution record your lecturer may ask for.)*
